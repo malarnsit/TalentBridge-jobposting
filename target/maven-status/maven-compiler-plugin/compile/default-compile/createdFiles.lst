@@ -1,0 +1,12 @@
+com\sasken\talentbridge\controller\DashboardController.class
+com\sasken\talentbridge\service\JobPostingService.class
+com\sasken\talentbridge\config\SecurityConfig.class
+com\sasken\talentbridge\TalentBridgeApplication.class
+com\sasken\talentbridge\controller\JobPostingController.class
+com\sasken\talentbridge\entity\JobPosting.class
+com\sasken\talentbridge\service\JobApplicationService.class
+com\sasken\talentbridge\repository\JobPostingRepository.class
+com\sasken\talentbridge\repository\JobApplicationRepository.class
+com\sasken\talentbridge\controller\ApplicationController.class
+com\sasken\talentbridge\entity\JobApplication.class
+com\sasken\talentbridge\entity\User.class

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>TalentBridge - Job Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body 
+        {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .navbar 
+        { 
+            background-color: #0d6efd; 
+        }
+        .navbar-brand 
+        { 
+            font-weight: bold; font-size: 1.4rem; 
+        }
+        .job-card 
+        {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease;
+        }
+        .job-card:hover 
+        {
+            transform: translateY(-5px);
+        }
+        .job-title 
+        {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+        .job-info 
+        {
+            margin: 5px 0;
+        }
+        .actions 
+        {
+            margin-top: 15px;
+        }
+        .btn-action 
+        {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark px-3">
+    <a class="navbar-brand" href="#">TalentBridge</a>
+</nav>
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Job Postings</h2>
+        <a class="btn btn-primary" th:href="@{/jobs/new}" sec:authorize="hasRole('HR')">
+            <i class="bi bi-plus-circle"></i> Add New Job
+        </a>
+    </div>
+
+    <div>
+        <div th:each="job : ${jobs}" class="job-card">
+            <div class="job-title" th:text="${job.title}">Java Developer</div>
+            <div class="job-info"><strong>ID:</strong> <span th:text="${job.id}">13</span></div>
+            <div class="job-info"><strong>Description:</strong> <span th:text="${job.description}">We are looking...</span></div>
+            <div class="job-info"><strong>Requirements:</strong> <span th:text="${job.requirements}">Java, Spring Boot</span></div>
+            <div class="job-info"><strong>Location:</strong> <span th:text="${job.location}">Bangalore, India</span></div>
+            <div class="job-info"><strong>Employment Type:</strong> <span th:text="${job.employmentType}">Full-Time</span></div>
+            <div class="job-info"><strong>Salary:</strong> ₹<span th:text="${job.salary}">100000.0</span></div>
+            <div class="job-info"><strong>Closing Date:</strong> <span th:text="${job.closingDate}">2025-02-20</span></div>
+            <div class="actions">
+                <a th:href="@{'/jobs/edit/' + ${job.id}}" class="btn btn-warning btn-action"
+                   sec:authorize="hasRole('HR')">
+                    <i class="bi bi-pencil-square"></i> Edit
+                </a>
+                <a th:href="@{'/jobs/delete/' + ${job.id}}" 
+                   onclick="return confirm('Are you sure you want to delete this job?')"
+                   class="btn btn-danger btn-action"
+                   sec:authorize="hasRole('HR')">
+                    <i class="bi bi-trash3"></i> Delete
+                </a>
+                <a th:href="@{'/applications/apply/' + ${job.id}}" 
+                   class="btn btn-success btn-action"
+                   sec:authorize="hasRole('EMPLOYEE')">
+                    <i class="bi bi-box-arrow-in-right"></i> Apply
+                </a>
+            </div>
+        </div>
+        <div th:if="${#lists.isEmpty(jobs)}" class="text-center text-muted">
+            No jobs available
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
