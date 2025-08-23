@@ -41,6 +41,7 @@ TalentBridge/
 └── README.md                    # Project documentation
 ## Database Schema
 
+>use talentbridge;
 > desc job_posting;
 +-----------------+---------------+------+-----+---------+----------------+
 | Field           | Type          | Null | Key | Default | Extra          |
